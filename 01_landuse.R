@@ -23,10 +23,8 @@ radii <- r %>% lapply(land_fun)
 
 # 
 land_prop <- function(x) { x %>% rename(Org.farm = CropBV1) %>%  #BV1 means organic agriculture in Germany
-  mutate(SNH = semi_natur + Fallow + Other_AUM + Grassy_str + Flower_fieBS2 + Flower_fieBS12/2 + Flower_fie, # Perennial semi-natural habiata cover, Flower fields BS12 are half annual and half perennial! 
-         Ann.fl = Flower_fieBS11 + Flower_fieBS12/2)  %>% # Annual flower strip/field cover, Flower fieldsBS12 are half annual and half perennial!
   dplyr::select(Site, Org.farm, SNH, Ann.fl, OSR) %>% # selecting the three AEM + OSR
-  mutate(across(Org.farm:OSR, function(x) x*100/(pi*radius^2/10000))) # calculating the % of each variable in 2km radius [hectares]
+  mutate(across(Org.farm:OSR, function(x) x*100/(pi*radius^2/10000))) # calculating the % of each variable in 2km radius
 }
 
 land <- radii %>% lapply(land_prop)
